@@ -80,3 +80,12 @@ def test_guardar_resultado_reemplaza_la_seccion(tmp_path):
     assert d["a"]["resumen"]["k"] == 2 and "generado" in d["a"]
     md = (tmp_path / "x.md").read_text()
     assert "dos" in md and "uno" not in md and "| c |" in md
+
+
+def test_perdida_al_final_de_la_ventana_avisa(nucleo):
+    t0 = datetime.now().timestamp()
+    _alimentar(nucleo, [26], t0)  # llegó 1 de 3 esperados: el contador no ve hueco
+    r = informe.analizar_rf3(nucleo.almacen.carpeta, t0 - 1, t0 + 179, periodo_s=60)
+    assert r["resumen"]["paquetes_perdidos_por_contador"] == 0
+    assert r["resumen"]["perdida_por_tiempo_pct"] == pytest.approx(66.67)
+    assert any("pérdida por tiempo" in x for x in r["avisos"])

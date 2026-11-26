@@ -83,6 +83,10 @@ def analizar_rf3(carpeta, t0: float, t1: float, periodo_s: float) -> dict:
     elif n > esperados:
         avisos.append(f"{n} uplinks > {esperados} esperados: hay envíos extra (probables eventos PIR); "
                       "la pérdida por tiempo se acota a 0")
+    pt = perdida_pct(n, esperados)
+    if n and pt:
+        avisos.append(f"pérdida por tiempo {pt} % ({n} de {esperados}); el contador solo detecta huecos "
+                      "entre uplinks recibidos, no los perdidos al final de la ventana")
     if perdidos:
         avisos.append(f"{perdidos} paquetes perdidos según el contador de la trama")
     if any(b < a and a - b < 60000 for a, b in zip(cnts, cnts[1:])):

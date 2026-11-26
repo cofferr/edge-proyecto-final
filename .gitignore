@@ -25,3 +25,6 @@ data_sim/
 
 # Configuración local con IP real de RF2
 config.local.toml
+
+# Anotaciones locales de la toma de datos
+anotaciones_toma_datos.md
