@@ -1,0 +1,161 @@
+{
+  "alcance": {
+    "que_mide": "Alcance LoRaWAN de RF3: uplinks recibidos frente a esperados, pérdida y RSSI/SNR por distancia",
+    "unidades": "distancia m; pérdida % (por tiempo y período); rssi dBm; snr dB",
+    "filas": [
+      {
+        "distancia_m": 5.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 3,
+        "esperados": 3,
+        "perdida_pct": 0.0,
+        "perdidos_contador": 0,
+        "rssi_media": -95.0,
+        "rssi_min": -97.0,
+        "rssi_max": -94.0,
+        "snr_media": 8.433,
+        "snr_min": 7.8,
+        "snr_max": 9.0
+      },
+      {
+        "distancia_m": 10.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 3,
+        "esperados": 3,
+        "perdida_pct": 0.0,
+        "perdidos_contador": 0,
+        "rssi_media": -93.667,
+        "rssi_min": -94.0,
+        "rssi_max": -93.0,
+        "snr_media": 8.867,
+        "snr_min": 8.8,
+        "snr_max": 9.0
+      },
+      {
+        "distancia_m": 20.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 1,
+        "esperados": 3,
+        "perdida_pct": 66.67,
+        "perdidos_contador": 0,
+        "rssi_media": -99.0,
+        "rssi_min": -99.0,
+        "rssi_max": -99.0,
+        "snr_media": 6.5,
+        "snr_min": 6.5,
+        "snr_max": 6.5
+      }
+    ],
+    "avisos": [
+      "20.0 m: pérdida por tiempo 66.67 % (1 de 3); el contador solo detecta huecos entre uplinks recibidos, no los perdidos al final de la ventana"
+    ],
+    "generado": "2026-11-25T23:46:15-05:00"
+  },
+  "rf3_enlace": {
+    "que_mide": "Enlace LoRaWAN de RF3: pérdida, RSSI/SNR, tiempos, filtro del gateway y ancho de banda",
+    "unidades": "pérdida %, rssi dBm, snr dB, latencias ms, bytes por hora, r adimensional, ahorro %",
+    "resumen": {
+      "duracion_s": 300.5,
+      "periodo_nominal_s": 60.0,
+      "uplinks_recibidos": 5,
+      "uplinks_esperados": 5,
+      "perdida_por_tiempo_pct": 0.0,
+      "paquetes_perdidos_por_contador": 0,
+      "perdida_por_contador_pct": 0.0,
+      "cadencia_mediana_s": 59.806,
+      "rssi_dbm": {
+        "n": 5,
+        "media": -92.6,
+        "min": -94.0,
+        "max": -90.0,
+        "desv": 1.517
+      },
+      "snr_db": {
+        "n": 5,
+        "media": 8.92,
+        "min": 8.5,
+        "max": 9.5,
+        "desv": 0.37
+      },
+      "latencia_servidor_red_a_gateway_ms": {
+        "n": 5,
+        "media": 2.2,
+        "min": 1.0,
+        "max": 3.0,
+        "desv": 0.837
+      },
+      "eventos_pir_mov1": 0,
+      "filtro_gateway": {
+        "magnitudes": {
+          "temperatura": {
+            "recibidas": 5,
+            "aceptadas": 1,
+            "r": 0.2
+          },
+          "humedad_aire": {
+            "recibidas": 5,
+            "aceptadas": 1,
+            "r": 0.2
+          }
+        },
+        "recibidas": 10,
+        "aceptadas": 2,
+        "r": 0.2
+      },
+      "ancho_de_banda": {
+        "uplinks_por_hora": 60.2,
+        "bytes_por_hora_sin_filtro_payload": 421,
+        "bytes_por_hora_con_filtro_payload": 84,
+        "bytes_por_hora_aire_lorawan": 1204,
+        "ahorro_pct": 80.0
+      },
+      "latencia_extremo_a_extremo": {
+        "medible": false,
+        "motivo": "el payload de RF3 (temp, hum, mov, cnt) no lleva marca de tiempo del nodo y el servidor de red no registra la hora de recepción en el receptor (ts se genera al validar el uplink).",
+        "aproximacion": "latencia ≈ tiempo en el aire del nodo (ToA, que el firmware imprime por serie; ~57 ms teóricos para SF7/BW125 con 20 B) + receptor→servidor de red por USB (no medido) + servidor de red→gateway (t_gw − t_ns, medido). Contrastar con cronómetro/vídeo moviendo la mano frente al PIR de RF3 y viendo la alerta en el panel."
+      },
+      "servidor_red_procesamiento_ms_sintetico": {
+        "n": 200,
+        "media": 0.179,
+        "min": 0.148,
+        "max": 0.443,
+        "desv": 0.038,
+        "mediana": 0.172,
+        "n_tramas_sinteticas": 200
+      }
+    },
+    "avisos": [],
+    "generado": "2026-11-25T23:30:24-05:00"
+  },
+  "rf3_pir": {
+    "que_mide": "Eventos PIR de RF3 (uplink con mov=1) en la ventana, con el uplink asociado",
+    "unidades": "hora local de recepción en el gateway; rssi dBm; snr dB",
+    "resumen": {
+      "duracion_s": 60.4,
+      "eventos_pir": 2
+    },
+    "filas": [
+      {
+        "hora": "23:39:56.987",
+        "tipo_quorum": "sospecha",
+        "fcnt": "22",
+        "cnt": "22",
+        "rssi": "-90",
+        "snr": "9.5"
+      },
+      {
+        "hora": "23:40:20.039",
+        "tipo_quorum": "sospecha",
+        "fcnt": "23",
+        "cnt": "23",
+        "rssi": "-96",
+        "snr": "8.8"
+      }
+    ],
+    "avisos": [],
+    "generado": "2026-11-25T23:40:56-05:00"
+  }
+}

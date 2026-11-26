@@ -1,0 +1,57 @@
+{
+  "alcance": {
+    "que_mide": "Alcance LoRaWAN de RF3: uplinks recibidos frente a esperados, pérdida y RSSI/SNR por distancia",
+    "unidades": "distancia m; pérdida % (por tiempo y período); rssi dBm; snr dB",
+    "filas": [
+      {
+        "distancia_m": 5.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 3,
+        "esperados": 3,
+        "perdida_pct": 0.0,
+        "perdidos_contador": 0,
+        "rssi_media": -95.0,
+        "rssi_min": -97.0,
+        "rssi_max": -94.0,
+        "snr_media": 8.433,
+        "snr_min": 7.8,
+        "snr_max": 9.0
+      },
+      {
+        "distancia_m": 10.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 3,
+        "esperados": 3,
+        "perdida_pct": 0.0,
+        "perdidos_contador": 0,
+        "rssi_media": -93.667,
+        "rssi_min": -94.0,
+        "rssi_max": -93.0,
+        "snr_media": 8.867,
+        "snr_min": 8.8,
+        "snr_max": 9.0
+      },
+      {
+        "distancia_m": 20.0,
+        "estado": "completa",
+        "duracion_s": 180.0,
+        "recibidos": 1,
+        "esperados": 3,
+        "perdida_pct": 66.67,
+        "perdidos_contador": 0,
+        "rssi_media": -99.0,
+        "rssi_min": -99.0,
+        "rssi_max": -99.0,
+        "snr_media": 6.5,
+        "snr_min": 6.5,
+        "snr_max": 6.5
+      }
+    ],
+    "avisos": [
+      "20.0 m: pérdida por tiempo 66.67 % (1 de 3); el contador solo detecta huecos entre uplinks recibidos, no los perdidos al final de la ventana"
+    ],
+    "generado": "2026-11-25T23:46:15-05:00"
+  }
+}

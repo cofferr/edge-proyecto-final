@@ -96,7 +96,14 @@ def evaluar_nodo_caido(eventos: list[dict], fuente_viva: str, t_ultimo_dato_caid
     if not propios:
         notas.append(f"el PIR de {fuente_viva} no generó eventos: no se probó la reacción a la caída")
     if alertas:
-        notas.append("hubo alerta con un nodo caído (inesperado)")
+        a = alertas[0]
+        previos = [e for e in pir if e["fuente"] != a["fuente"] and 0 <= a["t"] - e["t"] <= 1e9 and e["t"] < a["t"]]
+        if previos:
+            sep = a["t"] - previos[-1]["t"]
+            notas.append(f"alerta por quórum legítima: el último PIR de {previos[-1]['fuente']} fue {sep:.1f} s antes "
+                         "(dentro de W); el escenario no queda aislado, hay que repetirlo esperando más de W tras apagar el nodo")
+        else:
+            notas.append("hubo alerta con un nodo caído (inesperado)")
     if not t_fuera_de_linea:
         notas.append("el gateway no marcó el nodo como fuera de línea durante la observación")
     notas.append("el gateway no emite un aviso aparte: la caída solo se ve como estado 'fuera de línea' "

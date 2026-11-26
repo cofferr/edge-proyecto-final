@@ -167,7 +167,8 @@ def esc_sospecha(env: Entorno, a) -> dict:
     for fuente, otra in (("RF3", "RF2"), ("RF2", "RF3")):
         env.calma()
         cuenta_atras(f"ESCENARIO 1 · SOSPECHA ({fuente})",
-                     f"Mueve la mano SOLO frente al PIR de {fuente} (una o dos veces). NO toques {otra}.", a.cuenta, env.sim)
+                     f"TAPA el PIR de {otra} con un vaso opaco o cartón y mueve la mano SOLO frente al PIR de {fuente} (una o dos veces). "
+                     f"Mantente lejos de {otra}.", a.cuenta, env.sim)
         t0 = time.time()
         if env.sim:
             time.sleep(1.5)
@@ -195,7 +196,8 @@ def esc_sospecha(env: Entorno, a) -> dict:
 def esc_alerta(env: Entorno, a) -> dict:
     env.calma()
     cuenta_atras("ESCENARIO 2 · ALERTA",
-                 f"Mueve la mano frente al PIR de RF3 y, en menos de {env.W:.0f} s, frente al de RF2. Después NO muevas nada.",
+                 f"Mueve la mano frente al PIR de RF3 y, en menos de {env.W:.0f} s, frente al de RF2. Después SAL del campo "
+                 "de visión de RF2 y de su PIR, y NO muevas nada hasta que termine.",
                  a.cuenta, env.sim)
     t0 = time.time()
     if env.sim:
@@ -228,8 +230,9 @@ def esc_caido(env: Entorno, a) -> dict:
     env.calma()
     timeout = env.cfg.rf3.timeout_en_linea_s
     cuenta_atras("ESCENARIO 3 · NODO CAÍDO (RF3)",
-                 "APAGA RF3 (quita su alimentación) al terminar la cuenta atrás. Unos 20 s después mueve la mano UNA vez "
-                 "frente al PIR de RF2 y no toques nada más.", a.cuenta, env.sim)
+                 "APAGA RF3 (quita su alimentación) al terminar la cuenta atrás y ALÉJATE de él (tu mano frente a su PIR "
+                 "cuenta como evento). Espera unos 40 s sin moverte, luego mueve la mano UNA vez frente al PIR de RF2 "
+                 "y no toques nada más.", a.cuenta, env.sim)
     t0 = time.time()
     ultimo_dato, fuera = None, None
     if env.sim:

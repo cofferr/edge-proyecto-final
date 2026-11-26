@@ -63,3 +63,9 @@ def test_nodo_caido_sin_deteccion_o_sin_evento():
     assert not q.evaluar_nodo_caido([e(200, "sospecha", "RF2")], "RF2", 150.0, None, 150)["coincide"]
     r = q.evaluar_nodo_caido([], "RF2", 150.0, 301.0, 150)
     assert not r["coincide"] and "ambiguo" in r["resultado"]
+
+
+def test_nodo_caido_alerta_legitima_por_evento_previo_del_nodo_caido():
+    evs = [e(100, "sospecha", "RF3"), e(122, "alerta", "RF2")]  # el último PIR de RF3 fue 22 s antes (< W)
+    r = q.evaluar_nodo_caido(evs, "RF2", 100.0, 250.0, 150)
+    assert not r["coincide"] and "legítima" in r["nota"] and "22.0 s" in r["nota"]

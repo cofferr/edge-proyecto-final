@@ -1,0 +1,97 @@
+{
+  "sospecha": {
+    "que_mide": "Un solo PIR activo (RF3 y luego RF2, en ventanas separadas): el gateway debe registrar sospecha y no alerta",
+    "unidades": "horas locales de recepción en el gateway",
+    "resumen": {
+      "esperado": "sospecha, sin alerta",
+      "coincide": "no",
+      "capturas": "panel_sospecha.png"
+    },
+    "filas": [
+      {
+        "parte": "solo RF3",
+        "resultado": "alerta",
+        "coincide": "no",
+        "eventos": "00:27:42.575 RF3 sospecha; 00:27:56.996 RF2 alerta",
+        "nota": "se activó también la otra fuente (movimiento no aislado)"
+      },
+      {
+        "parte": "solo RF2",
+        "resultado": "alerta",
+        "coincide": "no",
+        "eventos": "00:28:57.114 RF2 alerta; 00:29:07.988 RF2 alerta; 00:29:22.597 RF2 sospecha",
+        "nota": "se activó también la otra fuente (movimiento no aislado)"
+      }
+    ],
+    "avisos": [
+      "solo RF3: se activó también la otra fuente (movimiento no aislado)",
+      "solo RF2: se activó también la otra fuente (movimiento no aislado)"
+    ],
+    "generado": "2026-11-26T00:34:14-05:00"
+  },
+  "alerta": {
+    "que_mide": "RF2 y RF3 dentro de W: el gateway debe declarar la alerta; se mide el tiempo hasta declararla (desde que el gateway recibe el segundo PIR) y hasta apagarla (desde el último evento)",
+    "unidades": "declaracion_alerta_ms en ms; apagado_s y separacion_pirs_s en s; horas locales",
+    "resumen": {
+      "esperado": "alerta y apagado a W s del último evento",
+      "coincide": "no",
+      "W_s": 30,
+      "capturas": "panel_alerta.png",
+      "primer_pir": "",
+      "segundo_pir": "RF3 00:30:19.140",
+      "separacion_pirs_s": null,
+      "declaracion_alerta_ms": 0.796,
+      "apagado_s": null
+    },
+    "filas": [
+      {
+        "evento": "00:30:19.140 RF3 alerta"
+      },
+      {
+        "evento": "00:30:25.476 RF2 alerta"
+      },
+      {
+        "evento": "00:30:39.427 RF2 alerta"
+      },
+      {
+        "evento": "00:30:42.601 RF3 alerta"
+      },
+      {
+        "evento": "00:30:53.143 RF2 alerta"
+      },
+      {
+        "evento": "00:31:04.156 RF2 alerta"
+      }
+    ],
+    "avisos": [
+      "la alerta no se apagó durante la observación (¿siguieron los movimientos?)"
+    ],
+    "generado": "2026-11-26T00:34:14-05:00"
+  },
+  "nodo_caido": {
+    "que_mide": "Con RF3 apagado, evento de RF2: el gateway debe dar sospecha (no alerta) y marcar RF3 fuera de línea; se mide el tiempo hasta detectar la caída desde el último dato de RF3",
+    "unidades": "tiempos en s; horas locales; timeout configurado en s",
+    "resumen": {
+      "timeout_configurado_s": 150,
+      "ultimo_dato_nodo_caido": "00:31:42.614",
+      "fuera_de_linea_a_las": "00:34:12.906",
+      "tiempo_hasta_detectar_caida_s": 150.29,
+      "esperado": "sospecha de RF2 sin alerta; RF3 pasa a fuera de línea",
+      "resultado": "alerta",
+      "coincide": "no",
+      "capturas": "panel_nodo_caido.png"
+    },
+    "filas": [
+      {
+        "evento": "00:32:04.931 RF2 alerta"
+      },
+      {
+        "evento": "00:32:16.125 RF2 sospecha"
+      }
+    ],
+    "avisos": [
+      "hubo alerta con un nodo caído (inesperado); el gateway no emite un aviso aparte: la caída solo se ve como estado 'fuera de línea' en estado.json y en el panel"
+    ],
+    "generado": "2026-11-26T00:34:14-05:00"
+  }
+}
