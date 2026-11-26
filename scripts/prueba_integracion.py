@@ -12,7 +12,10 @@ Salida: <datos>/integracion_resultados.json/.md
 
 import argparse
 import json
+import os
+import shutil
 import signal
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -52,6 +55,9 @@ def main(argv=None):
     ap.add_argument("--salida", type=Path)
     a = ap.parse_args(argv)
     periodo = 2.0 if a.simular else a.periodo
+    # que el Mac no se suspenda mientras corre (termina solo con este proceso)
+    caf = None if a.simular or not shutil.which("caffeinate") else subprocess.Popen(
+        ["caffeinate", "-dimsu", "-w", str(os.getpid())])
     sesion = Sesion(a.simular, periodo, a.puerto, sin=(), ventana_s=5, timeout_rf3_s=12, nombre="integracion")
     estados = {"RF1": [], "RF2": [], "RF3": []}
     cpu, reinicios_rf2, ev_prev = [], 0, None
