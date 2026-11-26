@@ -51,3 +51,13 @@ uv run python scripts/metricas.py --desde 2026-11-26T10:00 --hasta 2026-11-26T11
 ## Pruebas
 
 `uv run pytest` (filtrado, quórum, adaptadores, núcleo, métricas). Decisiones y checklist con hardware: `NOTAS.md`.
+
+## Pruebas de RF3 y de alcance (para el informe)
+
+```
+uv run python scripts/prueba_rf3.py --duracion 300 --periodo 60   # enlace, filtro, ancho de banda
+uv run python scripts/prueba_rf3.py --pir                         # 60 s, lista los eventos PIR de RF3
+uv run python scripts/prueba_alcance.py                           # 5, 10 y 20 m, 3 min cada una
+uv run python scripts/prueba_alcance.py --solo 10                 # una sola distancia (se fusiona con las demás)
+```
+`--simular` ejercita ambos sin hardware (datos en `data_sim/`). `--periodo` debe coincidir con `PERIODO_S` del firmware de RF3. Los scripts lanzan el gateway y, si no está en marcha, `lorawan_ns.py`. Resultados en `~/Edge/InformeFinal/datos/` (`rf3_resultados`, `alcance_resultados`, `alcance_log.csv`).
