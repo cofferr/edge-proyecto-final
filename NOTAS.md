@@ -38,3 +38,10 @@ Registro de decisiones menores tomadas de forma autónoma (qué y por qué).
 - [ ] Un nodo apagado no afecta a los demás ni al panel.
 - [ ] Comprobar umbrales con datos reales (0,5 °C / 2 % / 50 mV) mirando `r` en `scripts/metricas.py`.
 - [ ] Verificar visualmente el panel en el navegador.
+
+## Toma de datos RF1 y RF2 (2026-11-25)
+Script `scripts/toma_datos.py`; resultados en `resultados/` (copia de `~/Edge/InformeFinal/datos/`). RF3 y quórum quedan para otra tanda (necesitan ambos nodos).
+- **mDNS lento**: desde Python en macOS `nodocam.local` tarda ~5 s por petición (resuelve, pero tarde), así que el cliente nunca cae a `ip_respaldo` y cada `/status` y `/photo` pagaba ~5 s. La toma se hizo con la IP como `url` en `config.local.toml` (ignorado por git). Pendiente de decidir: resolver una vez y reutilizar la IP en `ClienteCam`.
+- **rf2_trigger**: se conserva la 3.ª toma (PIR reubicado, nodo recalibrado). El nodo contó 7 eventos para 5 `/trigger`; causa probable: reintento de mi script tras timeout (ya corregido, 1 intento por disparo), no comprobada. Decisión local `area_low` (escena quieta, esperable).
+- **rf2_pir**: eventos 1 y 2 separados solo 5,9 s (se pedía >10 s). Eventos 3-5 descartados por el nodo como `global_light_change` (área 72-85 %), probablemente la mano muy cerca del objetivo.
+- **Latencia detección→foto** (0,3–8,6 s) irregular: depende de la descarga de `/photo` (el nodo la sirve lento mientras procesa). No es del filtrado ni del quórum.

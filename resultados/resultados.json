@@ -1,0 +1,609 @@
+{
+  "rf1_ble": {
+    "que_mide": "2 min con solo RF1: tramas recibidas, cadencia y rango de cada magnitud",
+    "unidades": "temperatura °C, humedad aire %, humedad suelo mV, cadencia s, r adimensional, ahorro %",
+    "resumen": {
+      "duracion_s": 120.3,
+      "tramas_recibidas": 58,
+      "cadencia_media_s": 2.018,
+      "cadencia_mediana_s": 2.01,
+      "cadencia_max_s": 2.07,
+      "tramas_suelo_sin_dato": 0,
+      "tramas_invalidas": 0,
+      "magnitudes": {
+        "temperatura": {
+          "recibidas": 58,
+          "aceptadas": 1,
+          "r": 0.0172,
+          "valores": {
+            "n": 58,
+            "min": 23.0,
+            "media": 23.2259,
+            "max": 23.3
+          }
+        },
+        "humedad_aire": {
+          "recibidas": 58,
+          "aceptadas": 1,
+          "r": 0.0172,
+          "valores": {
+            "n": 58,
+            "min": 61.6,
+            "media": 62.1897,
+            "max": 63.3
+          }
+        },
+        "humedad_suelo_mv": {
+          "recibidas": 58,
+          "aceptadas": 1,
+          "r": 0.0172,
+          "valores": {
+            "n": 58,
+            "min": 2668.0,
+            "media": 2677.1379,
+            "max": 2683.0
+          }
+        }
+      },
+      "global": {
+        "recibidas": 174,
+        "aceptadas": 3,
+        "r": 0.0172,
+        "ahorro_pct": 98.28
+      }
+    },
+    "avisos": [],
+    "generado": "2026-11-25T21:32:19-05:00"
+  },
+  "filtrado_rf1": {
+    "que_mide": "12 min con solo RF1: lecturas recibidas/aceptadas por magnitud, r y ahorro (1 - r) del filtro por umbral",
+    "unidades": "temperatura °C, humedad aire %, humedad suelo mV, cadencia s, r adimensional, ahorro %",
+    "resumen": {
+      "duracion_s": 720.3,
+      "tramas_recibidas": 356,
+      "cadencia_media_s": 2.018,
+      "cadencia_mediana_s": 2.01,
+      "cadencia_max_s": 2.28,
+      "tramas_suelo_sin_dato": 0,
+      "tramas_invalidas": 0,
+      "magnitudes": {
+        "temperatura": {
+          "recibidas": 356,
+          "aceptadas": 29,
+          "r": 0.0815,
+          "valores": {
+            "n": 356,
+            "min": 23.3,
+            "media": 24.0478,
+            "max": 29.9
+          }
+        },
+        "humedad_aire": {
+          "recibidas": 356,
+          "aceptadas": 38,
+          "r": 0.1067,
+          "valores": {
+            "n": 356,
+            "min": 61.3,
+            "media": 69.9132,
+            "max": 99.9
+          }
+        },
+        "humedad_suelo_mv": {
+          "recibidas": 356,
+          "aceptadas": 17,
+          "r": 0.0478,
+          "valores": {
+            "n": 356,
+            "min": 2671.0,
+            "media": 2692.1685,
+            "max": 3135.0
+          }
+        }
+      },
+      "global": {
+        "recibidas": 1068,
+        "aceptadas": 84,
+        "r": 0.0787,
+        "ahorro_pct": 92.13
+      }
+    },
+    "avisos": [],
+    "generado": "2026-11-25T21:45:36-05:00"
+  },
+  "rf2_trigger": {
+    "que_mide": "5 disparos con /trigger espaciados 10 s: foto, tiempos por etapa y decisión local de RF2",
+    "unidades": "tiempos de etapa en µs (y ms), foto en bytes, latencia en ms, area_pct en %",
+    "resumen": {
+      "eventos": 7,
+      "fotos_guardadas": 7,
+      "foto_bytes": {
+        "n": 7,
+        "min": 8038,
+        "media": 8119.7143,
+        "max": 8164,
+        "mediana": 8127
+      },
+      "tiempos_us": {
+        "captura": {
+          "media": 115344.4,
+          "max": 139929.0
+        },
+        "gris": {
+          "media": 15380.9,
+          "max": 16026.0
+        },
+        "diferencia": {
+          "media": 32460.7,
+          "max": 33276.0
+        },
+        "morfologia": {
+          "media": 157223.0,
+          "max": 160500.0
+        },
+        "metricas": {
+          "media": 10318.1,
+          "max": 10510.0
+        },
+        "jpeg": {
+          "media": 71303.7,
+          "max": 71532.0
+        },
+        "total": {
+          "media": 215382.7,
+          "max": 219055.0
+        }
+      },
+      "tiempos_ms": {
+        "captura": {
+          "media": 115.344,
+          "max": 139.929
+        },
+        "gris": {
+          "media": 15.381,
+          "max": 16.026
+        },
+        "diferencia": {
+          "media": 32.461,
+          "max": 33.276
+        },
+        "morfologia": {
+          "media": 157.223,
+          "max": 160.5
+        },
+        "metricas": {
+          "media": 10.318,
+          "max": 10.51
+        },
+        "jpeg": {
+          "media": 71.304,
+          "max": 71.532
+        },
+        "total": {
+          "media": 215.383,
+          "max": 219.055
+        }
+      },
+      "latencia_deteccion_a_foto_ms": {
+        "n": 7,
+        "min": 709.468,
+        "media": 2497.627,
+        "max": 4556.282
+      },
+      "confirmados_por_el_nodo": 0
+    },
+    "eventos": [
+      {
+        "n": 1,
+        "hora": "21:57:59.451",
+        "foto_bytes": 8095,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 88096.0,
+        "captura_ms": 88.096,
+        "gris_us": 15036.0,
+        "gris_ms": 15.036,
+        "diferencia_us": 33276.0,
+        "diferencia_ms": 33.276,
+        "morfologia_us": 160500.0,
+        "morfologia_ms": 160.5,
+        "metricas_us": 10243.0,
+        "metricas_ms": 10.243,
+        "jpeg_us": 71204.0,
+        "jpeg_ms": 71.204,
+        "total_us": 219055.0,
+        "total_ms": 219.055,
+        "latencia_deteccion_a_foto_ms": 2467.219
+      },
+      {
+        "n": 2,
+        "hora": "21:58:10.314",
+        "foto_bytes": 8127,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 91566.0,
+        "captura_ms": 91.566,
+        "gris_us": 15245.0,
+        "gris_ms": 15.245,
+        "diferencia_us": 32773.0,
+        "diferencia_ms": 32.773,
+        "morfologia_us": 154821.0,
+        "morfologia_ms": 154.821,
+        "metricas_us": 10392.0,
+        "metricas_ms": 10.392,
+        "jpeg_us": 71199.0,
+        "jpeg_ms": 71.199,
+        "total_us": 213231.0,
+        "total_ms": 213.231,
+        "latencia_deteccion_a_foto_ms": 1087.326
+      },
+      {
+        "n": 3,
+        "hora": "21:58:22.623",
+        "foto_bytes": 8154,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 109933.0,
+        "captura_ms": 109.933,
+        "gris_us": 16026.0,
+        "gris_ms": 16.026,
+        "diferencia_us": 32137.0,
+        "diferencia_ms": 32.137,
+        "morfologia_us": 158112.0,
+        "morfologia_ms": 158.112,
+        "metricas_us": 10271.0,
+        "metricas_ms": 10.271,
+        "jpeg_us": 71260.0,
+        "jpeg_ms": 71.26,
+        "total_us": 216546.0,
+        "total_ms": 216.546,
+        "latencia_deteccion_a_foto_ms": 3361.279
+      },
+      {
+        "n": 4,
+        "hora": "21:58:26.498",
+        "foto_bytes": 8038,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 123465.0,
+        "captura_ms": 123.465,
+        "gris_us": 15667.0,
+        "gris_ms": 15.667,
+        "diferencia_us": 32598.0,
+        "diferencia_ms": 32.598,
+        "morfologia_us": 157210.0,
+        "morfologia_ms": 157.21,
+        "metricas_us": 10279.0,
+        "metricas_ms": 10.279,
+        "jpeg_us": 71271.0,
+        "jpeg_ms": 71.271,
+        "total_us": 215754.0,
+        "total_ms": 215.754,
+        "latencia_deteccion_a_foto_ms": 709.468
+      },
+      {
+        "n": 5,
+        "hora": "21:58:33.357",
+        "foto_bytes": 8121,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 139929.0,
+        "captura_ms": 139.929,
+        "gris_us": 15235.0,
+        "gris_ms": 15.235,
+        "diferencia_us": 31973.0,
+        "diferencia_ms": 31.973,
+        "morfologia_us": 155894.0,
+        "morfologia_ms": 155.894,
+        "metricas_us": 10268.0,
+        "metricas_ms": 10.268,
+        "jpeg_us": 71374.0,
+        "jpeg_ms": 71.374,
+        "total_us": 213370.0,
+        "total_ms": 213.37,
+        "latencia_deteccion_a_foto_ms": 2652.225
+      },
+      {
+        "n": 6,
+        "hora": "21:58:44.201",
+        "foto_bytes": 8164,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 117410.0,
+        "captura_ms": 117.41,
+        "gris_us": 15275.0,
+        "gris_ms": 15.275,
+        "diferencia_us": 31988.0,
+        "diferencia_ms": 31.988,
+        "morfologia_us": 158212.0,
+        "morfologia_ms": 158.212,
+        "metricas_us": 10264.0,
+        "metricas_ms": 10.264,
+        "jpeg_us": 71532.0,
+        "jpeg_ms": 71.532,
+        "total_us": 215739.0,
+        "total_ms": 215.739,
+        "latencia_deteccion_a_foto_ms": 2649.59
+      },
+      {
+        "n": 7,
+        "hora": "21:58:48.331",
+        "foto_bytes": 8139,
+        "confirmed": "False",
+        "reason": "area_low",
+        "area_pct": "0.0",
+        "captura_us": 137012.0,
+        "captura_ms": 137.012,
+        "gris_us": 15182.0,
+        "gris_ms": 15.182,
+        "diferencia_us": 32480.0,
+        "diferencia_ms": 32.48,
+        "morfologia_us": 155812.0,
+        "morfologia_ms": 155.812,
+        "metricas_us": 10510.0,
+        "metricas_ms": 10.51,
+        "jpeg_us": 71286.0,
+        "jpeg_ms": 71.286,
+        "total_us": 213984.0,
+        "total_ms": 213.984,
+        "latencia_deteccion_a_foto_ms": 4556.282
+      }
+    ],
+    "avisos": [],
+    "generado": "2026-11-25T21:58:57-05:00"
+  },
+  "rf2_pir": {
+    "que_mide": "Eventos reales del PIR de RF2 (hasta 5 o 4 min): foto, tiempos, decisión local y latencia de detección a foto guardada",
+    "unidades": "tiempos de etapa en µs (y ms), foto en bytes, latencia en ms, area_pct en %",
+    "resumen": {
+      "eventos": 5,
+      "fotos_guardadas": 5,
+      "foto_bytes": {
+        "n": 5,
+        "min": 4946,
+        "media": 7325.2,
+        "max": 8548,
+        "mediana": 7846
+      },
+      "tiempos_us": {
+        "captura": {
+          "media": 99929.2,
+          "max": 136105.0
+        },
+        "gris": {
+          "media": 15589.6,
+          "max": 16495.0
+        },
+        "diferencia": {
+          "media": 33762.4,
+          "max": 34765.0
+        },
+        "morfologia": {
+          "media": 155706.2,
+          "max": 158263.0
+        },
+        "metricas": {
+          "media": 16733.2,
+          "max": 18593.0
+        },
+        "jpeg": {
+          "media": 78354.2,
+          "max": 80250.0
+        },
+        "total": {
+          "media": 221791.4,
+          "max": 224340.0
+        }
+      },
+      "tiempos_ms": {
+        "captura": {
+          "media": 99.929,
+          "max": 136.105
+        },
+        "gris": {
+          "media": 15.59,
+          "max": 16.495
+        },
+        "diferencia": {
+          "media": 33.762,
+          "max": 34.765
+        },
+        "morfologia": {
+          "media": 155.706,
+          "max": 158.263
+        },
+        "metricas": {
+          "media": 16.733,
+          "max": 18.593
+        },
+        "jpeg": {
+          "media": 78.354,
+          "max": 80.25
+        },
+        "total": {
+          "media": 221.791,
+          "max": 224.34
+        }
+      },
+      "latencia_deteccion_a_foto_ms": {
+        "n": 5,
+        "min": 263.829,
+        "media": 3037.101,
+        "max": 8622.425
+      },
+      "confirmados_por_el_nodo": 2,
+      "duracion_s": 82.7
+    },
+    "eventos": [
+      {
+        "n": 1,
+        "hora": "22:01:44.954",
+        "foto_bytes": 8519,
+        "confirmed": "True",
+        "reason": "ok",
+        "area_pct": "49.68",
+        "captura_us": 81685.0,
+        "captura_ms": 81.685,
+        "gris_us": 16495.0,
+        "gris_ms": 16.495,
+        "diferencia_us": 33315.0,
+        "diferencia_ms": 33.315,
+        "morfologia_us": 155583.0,
+        "morfologia_ms": 155.583,
+        "metricas_us": 15778.0,
+        "metricas_ms": 15.778,
+        "jpeg_us": 78639.0,
+        "jpeg_ms": 78.639,
+        "total_us": 221171.0,
+        "total_ms": 221.171,
+        "latencia_deteccion_a_foto_ms": 4359.307
+      },
+      {
+        "n": 2,
+        "hora": "22:01:50.809",
+        "foto_bytes": 8548,
+        "confirmed": "True",
+        "reason": "ok",
+        "area_pct": "30.28",
+        "captura_us": 83811.0,
+        "captura_ms": 83.811,
+        "gris_us": 16066.0,
+        "gris_ms": 16.066,
+        "diferencia_us": 33296.0,
+        "diferencia_ms": 33.296,
+        "morfologia_us": 154885.0,
+        "morfologia_ms": 154.885,
+        "metricas_us": 13932.0,
+        "metricas_ms": 13.932,
+        "jpeg_us": 78492.0,
+        "jpeg_ms": 78.492,
+        "total_us": 218179.0,
+        "total_ms": 218.179,
+        "latencia_deteccion_a_foto_ms": 1547.072
+      },
+      {
+        "n": 3,
+        "hora": "22:02:21.964",
+        "foto_bytes": 6767,
+        "confirmed": "False",
+        "reason": "global_light_change",
+        "area_pct": "72.15",
+        "captura_us": 121325.0,
+        "captura_ms": 121.325,
+        "gris_us": 15312.0,
+        "gris_ms": 15.312,
+        "diferencia_us": 33730.0,
+        "diferencia_ms": 33.73,
+        "morfologia_us": 158263.0,
+        "morfologia_ms": 158.263,
+        "metricas_us": 17035.0,
+        "metricas_ms": 17.035,
+        "jpeg_us": 79234.0,
+        "jpeg_ms": 79.234,
+        "total_us": 224340.0,
+        "total_ms": 224.34,
+        "latencia_deteccion_a_foto_ms": 8622.425
+      },
+      {
+        "n": 4,
+        "hora": "22:02:38.946",
+        "foto_bytes": 4946,
+        "confirmed": "False",
+        "reason": "global_light_change",
+        "area_pct": "81.99",
+        "captura_us": 76720.0,
+        "captura_ms": 76.72,
+        "gris_us": 14814.0,
+        "gris_ms": 14.814,
+        "diferencia_us": 33706.0,
+        "diferencia_ms": 33.706,
+        "morfologia_us": 154976.0,
+        "morfologia_ms": 154.976,
+        "metricas_us": 18593.0,
+        "metricas_ms": 18.593,
+        "jpeg_us": 75156.0,
+        "jpeg_ms": 75.156,
+        "total_us": 222089.0,
+        "total_ms": 222.089,
+        "latencia_deteccion_a_foto_ms": 392.872
+      },
+      {
+        "n": 5,
+        "hora": "22:02:49.927",
+        "foto_bytes": 7846,
+        "confirmed": "False",
+        "reason": "global_light_change",
+        "area_pct": "84.52",
+        "captura_us": 136105.0,
+        "captura_ms": 136.105,
+        "gris_us": 15261.0,
+        "gris_ms": 15.261,
+        "diferencia_us": 34765.0,
+        "diferencia_ms": 34.765,
+        "morfologia_us": 154824.0,
+        "morfologia_ms": 154.824,
+        "metricas_us": 18328.0,
+        "metricas_ms": 18.328,
+        "jpeg_us": 80250.0,
+        "jpeg_ms": 80.25,
+        "total_us": 223178.0,
+        "total_ms": 223.178,
+        "latencia_deteccion_a_foto_ms": 263.829
+      }
+    ],
+    "avisos": [],
+    "generado": "2026-11-25T22:02:52-05:00"
+  },
+  "calculos": {
+    "que_mide": "Calc 3 (ancho de banda) y cifras de RF2 derivadas de los tramos; fuentes: {\"rf1\": \"cadencia y r de filtrado_rf1 (12 min); trama BLE de 7 bytes\", \"rf2\": \"fotos de rf2_trigger + rf2_pir\"}",
+    "unidades": "bytes por hora, % de ahorro, ms",
+    "resumen": {
+      "rf1": {
+        "cadencia_usada_s": 2.018,
+        "tramas_por_hora": 1783.9,
+        "bytes_por_hora_sin_filtro": 12488,
+        "r_global": 0.0787,
+        "bytes_por_hora_con_filtro": 983,
+        "ahorro_pct": 92.13
+      },
+      "rf2": {
+        "fotos_usadas": 12,
+        "tam_medio_foto_bytes": 7789,
+        "tam_mediano_foto_bytes": 8124.0,
+        "bytes_por_hora_1_foto_por_s": 28039200,
+        "bytes_por_hora_fotos_por_evento": {
+          "N=0": {
+            "bytes_por_hora": 0,
+            "ahorro_vs_1_foto_por_s_pct": 100.0
+          },
+          "N=5": {
+            "bytes_por_hora": 38943,
+            "ahorro_vs_1_foto_por_s_pct": 99.861
+          },
+          "N=30": {
+            "bytes_por_hora": 233660,
+            "ahorro_vs_1_foto_por_s_pct": 99.167
+          }
+        },
+        "tiempo_procesamiento_ms": {
+          "media": 218.587,
+          "max": 224.34
+        },
+        "latencia_deteccion_a_foto_ms": {
+          "media": 2767.4,
+          "max": 8622.425
+        }
+      }
+    },
+    "avisos": [
+      "el filtro actúa en el gateway: la radio BLE ya recibió la trama; el ahorro es de lo que se guarda/reenvía aguas arriba, con r por lectura (3 lecturas por trama)"
+    ],
+    "generado": "2026-11-25T22:03:00-05:00"
+  }
+}
