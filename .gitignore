@@ -22,3 +22,6 @@ lorawan_uplinks.jsonl
 
 # Datos simulados movidos aparte
 data_sim/
+
+# Configuración local con IP real de RF2
+config.local.toml

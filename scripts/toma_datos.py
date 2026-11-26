@@ -29,6 +29,8 @@ RAIZ = Path(__file__).resolve().parent.parent
 DATOS = RAIZ / "data"
 SALIDA = Path.home() / "Edge" / "InformeFinal" / "datos"
 TRAMA_BLE_BYTES = 7
+# config.local.toml (ignorado por git) tiene prioridad: ahí va la IP real de respaldo de RF2
+CONFIG = "config.local.toml" if (RAIZ / "config.local.toml").exists() else "config.toml"
 
 
 # ------------------------------------------------------------------ utilidades
@@ -51,7 +53,7 @@ def resumen(v: list[float]) -> dict:
 def lanzar_gateway(tramo: str, sin: list[str]) -> subprocess.Popen:
     log = open(DATOS / f"gateway_{tramo}.log", "w")
     return subprocess.Popen(
-        ["uv", "run", "python", "-m", "parcialfinal.gateway", "--sin", *sin],
+        ["uv", "run", "python", "-m", "parcialfinal.gateway", "--config", CONFIG, "--sin", *sin],
         cwd=RAIZ, stdout=log, stderr=subprocess.STDOUT,
     )
 
@@ -170,7 +172,7 @@ def tramo_rf1(tramo, duracion_s, descripcion):
 # ------------------------------------------------------------------ tramos RF2
 def cliente_rf2():
     import tomllib
-    cfg = tomllib.loads((RAIZ / "config.toml").read_text())["rf2"]
+    cfg = tomllib.loads((RAIZ / CONFIG).read_text())["rf2"]
     bases = [cfg["url"].rstrip("/")] + ([f"http://{cfg['ip_respaldo']}"] if cfg.get("ip_respaldo") else [])
     return bases
 
