@@ -1,0 +1,28 @@
+[project]
+name = "parcialfinal"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "cofferr", email = "juanjo5411@hotmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "bleak>=3.1.0",
+    "cryptography>=50.0.2",
+    "gradio>=6.32.0",
+    "httpx>=0.28.1",
+    "pyserial>=3.5",
+    "pytest>=9.2.0",
+]
+
+[project.scripts]
+gateway = "parcialfinal.gateway:main"
+panel = "parcialfinal.panel:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Datos generados por el gateway y credenciales
+data/
+*.secret
+secrets.*
+.env
+.pytest_cache/
+
+# Servidor de red LoRaWAN: contiene AppKey y claves de sesión; no se versiona
+lorawan_ns.py
+ns_state.json
+lorawan_uplinks.jsonl

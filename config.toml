@@ -1,0 +1,37 @@
+# Configuración del gateway. Sin credenciales (no poner contraseñas Wi-Fi aquí).
+
+[filtro]                      # banda muerta por nodo y magnitud
+umbral_temperatura_c = 0.5
+umbral_humedad_aire_pct = 2.0
+umbral_humedad_suelo_mv = 50.0
+latido_s = 300                # T_lat: se acepta aunque no cambie, cada 5 min
+
+[quorum]
+ventana_s = 30                # W
+
+[rf1]                         # BLE
+nombre = "EstacionESP32"
+service_uuid = "7f3c1a10-5d2b-4e8a-9c41-2b6f0d3e8a01"
+char_uuid = "7f3c1a11-5d2b-4e8a-9c41-2b6f0d3e8a01"
+timeout_en_linea_s = 10       # sin datos más de esto = fuera de línea
+
+[rf2]                         # ESP32-CAM por HTTP
+url = "http://nodocam.local"
+ip_respaldo = ""              # p. ej. "192.168.1.50" si falla mDNS
+periodo_s = 1.0
+timeout_http_s = 3.0
+timeout_en_linea_s = 5
+
+[rf3]                         # LoRaWAN vía lorawan_ns.py
+modo = "udp"                  # "udp" (127.0.0.1:9001) o "archivo" (sigue lorawan_uplinks.jsonl)
+udp_host = "127.0.0.1"
+udp_puerto = 9001
+archivo = "lorawan_uplinks.jsonl"
+timeout_en_linea_s = 150      # uplinks cada 60 s
+
+[almacen]
+carpeta = "data"
+
+[panel]
+puerto = 7860
+refresco_s = 1.0
