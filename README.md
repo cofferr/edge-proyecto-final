@@ -61,3 +61,11 @@ uv run python scripts/prueba_alcance.py                           # 5, 10 y 20 m
 uv run python scripts/prueba_alcance.py --solo 10                 # una sola distancia (se fusiona con las demás)
 ```
 `--simular` ejercita ambos sin hardware (datos en `data_sim/`). `--periodo` debe coincidir con `PERIODO_S` del firmware de RF3. Los scripts lanzan el gateway y, si no está en marcha, `lorawan_ns.py`. Resultados en `~/Edge/InformeFinal/datos/` (`rf3_resultados`, `alcance_resultados`, `alcance_log.csv`).
+
+## Quórum e integración (hardware real)
+
+```
+uv run python scripts/prueba_quorum.py        # RF2 + RF3: sospecha, alerta y nodo caído (con cuentas atrás y capturas del panel)
+uv run python scripts/prueba_integracion.py   # RF1 + RF2 + RF3 durante 10 min
+```
+`--simular` ejercita ambos sin hardware (datos en `data_sim/`). Resultados en `~/Edge/InformeFinal/datos/` (`quorum_resultados`, `integracion_resultados`) y capturas en `~/Edge/InformeFinal/figuras/gateway/` y `figuras/gateway/`. Las capturas usan Playwright con el Chrome instalado.
