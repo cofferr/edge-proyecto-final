@@ -29,7 +29,7 @@ Cada 90 s el simulador dispara un PIR aislado de RF2 (sospecha) y luego RF2 + RF
 ## Métricas para el informe
 
 ```
-uv run python scripts/metricas.py --desde 2026-11-26T10:00 --hhasta 2026-11-26T11:00
+uv run python scripts/metricas.py --desde 2026-11-26T10:00 --hasta 2026-11-26T11:00
 ```
 
 ## Pruebas
