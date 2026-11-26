@@ -22,7 +22,8 @@ from pathlib import Path
 
 from parcialfinal import informe
 from parcialfinal import integracion as ig
-from parcialfinal.procesos import Sesion
+from parcialfinal.capturas import Capturador
+from parcialfinal.procesos import RAIZ, Sesion
 
 
 _PROC = {}
@@ -63,6 +64,14 @@ def main(argv=None):
     cpu, reinicios_rf2, ev_prev = [], 0, None
     with sesion as s:
         salida = a.salida or s.salida
+        figs = [RAIZ / "data_sim" / "figuras"] if a.simular else [
+            Path.home() / "Edge" / "InformeFinal" / "figuras" / "gateway", RAIZ / "figuras" / "gateway"]
+        s.lanzar_panel(7862)
+        cap = Capturador("http://127.0.0.1:7862", figs)
+        cap.abrir()
+        if not cap.ok:
+            print(f"AVISO: sin capturas automáticas ({cap.error})")
+        hechas = set()
         t0 = time.time()
         print(f"[integracion] iniciada {time.strftime('%H:%M:%S')}; {a.duracion:.0f} s con RF1+RF2+RF3. "
               "Mueve las manos frente a los PIR de RF2 y RF3 cuando quieras (alertas = ambos en < W).", flush=True)
@@ -73,6 +82,17 @@ def main(argv=None):
                     e = json.loads((s.carpeta / "estado.json").read_text())
                     for n in estados:
                         estados[n].append((e["t_estado"], e["nodos"][n]["en_linea"]))
+                    ahora = time.time()
+                    sosp = e.get("ultima_sospecha")
+                    for nombre, cond in (
+                            ("panel_integracion_reposo", ahora - t0 > 45 and not e["alerta_activa"]
+                             and not (sosp and ahora - sosp <= e["ventana_s"])),
+                            ("panel_integracion_sospecha", bool(sosp) and ahora - sosp <= e["ventana_s"] and not e["alerta_activa"]),
+                            ("panel_integracion_alerta", e["alerta_activa"])):
+                        if cond and nombre not in hechas and cap.ok:
+                            hechas.add(nombre)
+                            if cap.capturar(nombre, 1.5):
+                                print(f"   captura {nombre}.png", flush=True)
                     ev = e["nodos"]["RF2"]["extra"].get("events")
                     if ev is not None and ev_prev is not None and ev < ev_prev:
                         reinicios_rf2 += 1  # el contador de eventos del nodo bajó: se reinició
@@ -88,6 +108,9 @@ def main(argv=None):
         except KeyboardInterrupt:
             print("interrumpido: se analiza lo recogido hasta ahora")
         t1 = time.time()
+        if cap.ok and cap.capturar("panel_integracion_final", 1.5):
+            print("   captura panel_integracion_final.png")
+        cap.cerrar()
     log = (s.carpeta / "gateway_rf3.log").read_text(errors="replace")
     r = ig.analizar(s.carpeta, t0, t1, periodo, log, estados, cpu, reinicios_rf2)
     informe.guardar_resultado(salida, "integracion_resultados", "integracion", {
