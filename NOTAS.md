@@ -51,3 +51,11 @@ Los tres escenarios salieron "no coincide" (ver `resultados/quorum_resultados.md
 - **Válido**: detección de nodo caído (RF3 marcado fuera de línea a 150,3 s de su último dato, timeout configurado 150 s); declaración de alerta (~0,8 ms con RF3, 0,2–5,7 s con RF2 por la descarga de la foto previa al quórum).
 - **A repetir con el protocolo corregido**: cable de RF2 fijo, nodos separados, PIR del otro nodo tapado en sospecha, salir del campo de visión tras el segundo movimiento, y en nodo caído esperar ~40 s tras apagar RF3.
 - **Hallazgo**: el gateway no emite aviso aparte cuando un nodo cae; solo el estado "fuera de línea" en `estado.json` y en el panel.
+
+## Prueba de integración RF1+RF2+RF3 (2026-11-26, 10 min, hardware real)
+`resultados/integracion_resultados.md`; capturas `figuras/gateway/panel_integracion_*.png`.
+- RF1: 298 tramas, cadencia 2,014 s, sin huecos, 1 conexión BLE, 0 caídas. RF3: 12 uplinks (10 esperados; 2 extra por PIR), 0 perdidos, RSSI medio −57 dBm. RF2: 7 eventos con foto (7/7 descargadas).
+- Gateway: CPU media 0,62 % (máx 0,9 %) de un núcleo, RSS máx 68 MB (psutil, 118 muestras).
+- Quórum: 9 alertas y 4 sospechas; fin de alerta a 30,6 s del último evento en las dos alertas (W = 30 s + resolución del tick de 1 s). Alerta declarada en <1 ms con RF3 y de 0,3 a 3,3 s con RF2 (descarga de foto previa al quórum).
+- RF2: 7 "caídas" a fuera de línea (15,1 s en total), una por evento PIR: probable efecto del umbral de 5 s mientras el sondeo está ocupado descargando la foto, no del nodo (no verificado). 1 fallo de sondeo.
+- Los uplinks periódicos de RF3 llevan `mov=1` si el PIR está en alto en ese instante: generan sospechas tras un movimiento (00:50:59, 00:54:59).
