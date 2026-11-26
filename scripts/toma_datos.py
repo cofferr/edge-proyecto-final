@@ -233,17 +233,25 @@ def tramo_rf2_trigger():
     if st0.get("warming_up") or not st0.get("background_ready"):
         avisos.append("al iniciar: warming_up/background_ready no listos; los primeros /trigger pueden descartarse")
     p = lanzar_gateway("rf2_trigger", ["rf1", "rf3"])
+    ok = 0
     t0 = time.time()
     try:
         time.sleep(4)  # línea base de events en el gateway
         for i in range(5):
-            r = get(bases, "/trigger", timeout=10)
-            print(f"/trigger {i + 1}/5 -> HTTP {r.status_code} {r.text[:80]!r}")
+            # Un solo intento por disparo, sin reintentar contra otra base: un reintento
+            # tras un timeout dispararía el nodo dos veces (eventos de más).
+            try:
+                r = httpx.get(bases[0] + "/trigger", timeout=10)
+                ok += r.status_code == 200
+                print(f"/trigger {i + 1}/5 -> HTTP {r.status_code}")
+            except httpx.HTTPError as e:
+                print(f"/trigger {i + 1}/5 -> ERROR {type(e).__name__} (no se reintenta)")
             time.sleep(10)
         time.sleep(3)
     finally:
         detener(p)
-    analizar_rf2("rf2_trigger", t0, time.time(), "5 disparos con /trigger espaciados 10 s: foto, tiempos por etapa y decisión local de RF2", avisos=avisos)
+    analizar_rf2("rf2_trigger", t0, time.time(), "5 disparos con /trigger espaciados 10 s: foto, tiempos por etapa y decisión local de RF2",
+                 extra={"triggers_enviados": 5, "triggers_http_ok": ok}, avisos=avisos)
 
 
 def tramo_rf2_pir():
