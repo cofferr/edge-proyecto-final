@@ -12,3 +12,29 @@ Registro de decisiones menores tomadas de forma autónoma (qué y por qué).
 - Frontera de la ventana W del quórum **inclusiva** en confirmación (`<= W`, como pide el enunciado "hace W o menos") y en caducidad de la alerta (activa mientras `t - último <= W`).
 - Umbral exacto acepta; comparación con tolerancia 1e-9 para evitar falsos descartes por coma flotante (23.12 − 22.62 = 0.49999…).
 - Lecturas "sin dato" (0xFFFF suelo/humedad, 0x7FFF temperatura) **no** cuentan como recibidas: no son una lectura.
+
+## Arquitectura
+- Un proceso gateway (hilos: un lector por nodo + `tick`) y un proceso panel aparte. Comunicación: `data/estado.json`, escrito de forma atómica (`os.replace`) por el núcleo cada 1 s y en cada evento. El panel nunca escribe ni arranca nada.
+- Un lector que lanza una excepción se reinicia a los 5 s sin afectar a los otros; RF1 reconecta con backoff 1→30 s; RF2 reintenta cada ciclo.
+- **RF3**: esquema confirmado leyendo `lorawan_ns.py` (`decode_payload`) y `lorawan_uplinks.jsonl`: `ts, node, devaddr, fcnt, rssi, snr, confirmed, fport, payload_hex, temp_c, hum_pct, mov, cnt`; `None` = sin dato. Se usa UDP; `modo = "archivo"` sigue el JSONL desde el final. Pérdidas = huecos en `cnt` (módulo 65536; un salto atrás = reinicio del nodo, no cuenta).
+- **RF2**: un aumento de `events` mayor que 1 entre sondeos (se perdió alguno) cuenta como **un** evento y una foto (solo hay "última foto"). Primer sondeo y reinicio del nodo (`events` baja) solo fijan la línea base. La marca del evento es la de recepción de `/status`, antes de descargar la foto. Si la foto falla, el evento se registra igual con ruta vacía.
+- **Estado en línea**: sin datos más de 10 s (RF1), 5 s (RF2, cuenta cualquier `/status` correcto), 150 s (RF3); configurable.
+- **Tiempo de procesamiento** de eventos.csv = recepción → fila escrita (ms). Para RF3, `rf3_uplinks.csv` guarda `t_ns` (marca del servidor de red) y `t_gw` (entrada al gateway); ambas del mismo reloj del Mac.
+- RF1 envía `movimiento` siempre 0: se ignora; RF1 no es fuente de quórum.
+- `eventos.csv` también incluye filas `fin_alerta` (útiles para el panel); `metricas.py` solo cuenta `sospecha` y `alerta`. Cada evento durante una alerta ya activa cuenta como `alerta` solo si la otra fuente está dentro de W; si no, queda como `sospecha` aunque la alerta siga activa (la alerta se extiende igualmente).
+- El simulador usa un ciclo fijo de 90 s; RF1 simulado se inyecta en `LectorBle.al_recibir` (sin Bluetooth); RF3 simulado pasa por UDP real.
+
+## Verificado
+- `uv run pytest`: 37 pruebas pasan. Prueba de punta a punta en modo simulado: gateway + panel arrancados, sospecha → alerta por quórum, fotos y CSV generados, panel responde y renderiza (vía gradio_client). No se miró el aspecto visual en un navegador.
+
+## Checklist con hardware real (pendiente)
+- [ ] macOS concede Bluetooth a la terminal; RF1 se encuentra por nombre/UUID y llegan tramas cada 2 s; suelo en mV razonable, 0xFFFF no genera lecturas.
+- [ ] Apagar/alejar RF1: panel pasa a FUERA DE LÍNEA a los 10 s y el gateway reconecta solo al volver.
+- [ ] `http://nodocam.local` resuelve desde el Mac; si no, configurar `ip_respaldo`. Revisar `/status` real: ¿los campos coinciden con los esperados (`events`, `last.*`)?
+- [ ] `/trigger` en RF2 → sube `events`, aparece foto JPEG 320x240 válida en `data/fotos/` y en el panel, con decisión local.
+- [ ] Un evento RF2 descartado por el nodo también guarda foto.
+- [ ] `lorawan_ns.py` en marcha: llegan uplinks por UDP 9001 al gateway (¿puerto ocupado si otro proceso escucha?); RSSI/SNR y `cnt` correctos en `rf3_uplinks.csv`.
+- [ ] Uplink con `mov=1` genera evento RF3; PIR en RF2 y RF3 con menos de 30 s de diferencia → alerta; con más → dos sospechas; la alerta se apaga 30 s después del último evento.
+- [ ] Un nodo apagado no afecta a los demás ni al panel.
+- [ ] Comprobar umbrales con datos reales (0,5 °C / 2 % / 50 mV) mirando `r` en `scripts/metricas.py`.
+- [ ] Verificar visualmente el panel en el navegador.
