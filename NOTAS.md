@@ -45,3 +45,9 @@ Script `scripts/toma_datos.py`; resultados en `resultados/` (copia de `~/Edge/In
 - **rf2_trigger**: se conserva la 3.ª toma (PIR reubicado, nodo recalibrado). El nodo contó 7 eventos para 5 `/trigger`; causa probable: reintento de mi script tras timeout (ya corregido, 1 intento por disparo), no comprobada. Decisión local `area_low` (escena quieta, esperable).
 - **rf2_pir**: eventos 1 y 2 separados solo 5,9 s (se pedía >10 s). Eventos 3-5 descartados por el nodo como `global_light_change` (área 72-85 %), probablemente la mano muy cerca del objetivo.
 - **Latencia detección→foto** (0,3–8,6 s) irregular: depende de la descarga de `/photo` (el nodo la sirve lento mientras procesa). No es del filtrado ni del quórum.
+
+## Prueba de quórum con hardware (2026-11-26): primera toma, no concluyente
+Los tres escenarios salieron "no coincide" (ver `resultados/quorum_resultados.md`). Causa probable (indicada por quien hizo la prueba): ambos nodos estaban en el mismo escritorio; el PIR de RF2 se disparó por el movimiento de su cable (todo el circuito se movió) y RF3 por el codo en su campo de visión. No es un fallo del quórum: la alerta se declaró correctamente cuando RF2 y RF3 dispararon con menos de W = 30 s de diferencia.
+- **Válido**: detección de nodo caído (RF3 marcado fuera de línea a 150,3 s de su último dato, timeout configurado 150 s); declaración de alerta (~0,8 ms con RF3, 0,2–5,7 s con RF2 por la descarga de la foto previa al quórum).
+- **A repetir con el protocolo corregido**: cable de RF2 fijo, nodos separados, PIR del otro nodo tapado en sospecha, salir del campo de visión tras el segundo movimiento, y en nodo caído esperar ~40 s tras apagar RF3.
+- **Hallazgo**: el gateway no emite aviso aparte cuando un nodo cae; solo el estado "fuera de línea" en `estado.json` y en el panel.
