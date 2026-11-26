@@ -19,3 +19,6 @@ secrets.*
 # Servidor de red LoRaWAN: claves de sesión y datos propios; no se versionan
 ns_state.json
 lorawan_uplinks.jsonl
+
+# Datos simulados movidos aparte
+data_sim/
