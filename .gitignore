@@ -16,7 +16,6 @@ secrets.*
 .env
 .pytest_cache/
 
-# Servidor de red LoRaWAN: contiene AppKey y claves de sesión; no se versiona
-lorawan_ns.py
+# Servidor de red LoRaWAN: claves de sesión y datos propios; no se versionan
 ns_state.json
 lorawan_uplinks.jsonl
