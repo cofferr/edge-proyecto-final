@@ -32,3 +32,15 @@ def test_nodo_fuera_de_linea_por_tiempo(tmp_path):
     reloj[0] = 11.0  # timeout RF1 = 10 s
     assert not n.estado()["nodos"]["RF1"]["en_linea"]
     assert not n.estado()["nodos"]["RF2"]["en_linea"]
+
+
+def test_panel_renderiza_estado(nucleo):
+    from parcialfinal.panel import banner, tarjeta
+    nucleo.lectura("RF1", "humedad_suelo_mv", 1200.0)
+    nucleo.actualizar_nodo("RF1", nucleo.reloj())
+    nucleo.evento_pir("RF2", nucleo.reloj())
+    nucleo.evento_pir("RF3", nucleo.reloj())
+    e = nucleo.estado()
+    assert "1200 mV" in tarjeta("RF1", e["nodos"]["RF1"], e["t_estado"])
+    assert "ALERTA ACTIVA" in banner(e, e["t_estado"])
+    assert "sin publicar" in banner(e, e["t_estado"] + 60)
