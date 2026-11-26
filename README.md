@@ -6,6 +6,22 @@ Requisitos: [uv](https://docs.astral.sh/uv/). `uv sync` instala todo (Python 3.1
 
 Todos los umbrales, la ventana W y las direcciones de los nodos están en `config.toml`.
 
+## Estructura del repositorio
+
+```
+firmware/rf1_ble/         sketch del nodo RF1 (BLE, EstacionESP32)
+firmware/rf2_camara/      sketch del nodo RF2 (ESP32-CAM, HTTP)
+firmware/rf3_lorawan/     sketch del nodo RF3 (LoRaWAN, OTAA)
+firmware/receptor_lora/   sketch del receptor LoRa (ESP32 conectado por USB al Mac)
+src/parcialfinal/         gateway (núcleo, nodos, simulador) y panel
+scripts/                  scripts del informe (metricas.py)
+lorawan_ns.py             servidor de red LoRaWAN (usa el receptor por USB)
+```
+
+**Arduino IDE**: abrir el `.ino` de cada carpeta (Archivo → Abrir); el nombre de la carpeta coincide con el del sketch, como exige el IDE. Elegir la placa y el puerto de cada ESP32 antes de cargar.
+
+**Credenciales**: en `firmware/rf2_camara/rf2_camara.ino` están `WIFI_SSID = "NETWORK"` y `WIFI_PASS = "PASSWORD"` como valores genéricos; hay que cambiarlos por los de tu propia red (sin subirlos al repositorio). La AppKey de RF3 y de `lorawan_ns.py` es la clave de ejemplo pública de la especificación LoRaWAN.
+
 ## Modo simulado (sin hardware ni Bluetooth)
 
 ```
