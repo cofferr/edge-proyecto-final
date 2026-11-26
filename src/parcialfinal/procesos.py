@@ -61,28 +61,41 @@ class Sesion:
     para no mezclar datos simulados con los reales.
     """
 
-    def __init__(self, simular: bool, periodo_s: float, puerto: str | None = None):
-        self.simular, self.periodo_s, self.puerto = simular, periodo_s, puerto
+    def __init__(self, simular: bool, periodo_s: float, puerto: str | None = None,
+                 sin: tuple[str, ...] = ("rf1", "rf2"), ventana_s: float | None = None,
+                 timeout_rf3_s: float | None = None, nombre: str = "pruebas_rf3"):
+        """`sin`: nodos que no se arrancan. En simulado, `ventana_s` y `timeout_rf3_s` acortan W y el
+        tiempo de "fuera de línea" para que las pruebas simuladas sean rápidas."""
+        self.simular, self.periodo_s, self.puerto, self.sin = simular, periodo_s, puerto, tuple(sin)
+        self.ventana_s, self.timeout_rf3_s = ventana_s, timeout_rf3_s
         self.gateway = self.ns = None
         if simular:
-            self.carpeta = RAIZ / "data_sim" / "pruebas_rf3"
+            self.carpeta = RAIZ / "data_sim" / nombre
             self.salida = RAIZ / "data_sim" / "informe"
         else:
             self.carpeta = RAIZ / "data"
             self.salida = Path.home() / "Edge" / "InformeFinal" / "datos"
-        self.config = "config.toml"
+        # en real, config.local.toml (ignorado por git) tiene la IP de RF2 si hace falta
+        self.config = "config.local.toml" if (RAIZ / "config.local.toml").exists() else "config.toml"
+        self.panel = None
 
     def __enter__(self):
         self.carpeta.mkdir(parents=True, exist_ok=True)
         if self.simular:
             texto = (RAIZ / "config.toml").read_text().replace('carpeta = "data"', f'carpeta = "{self.carpeta}"')
+            if self.ventana_s is not None:
+                texto = texto.replace("ventana_s = 30", f"ventana_s = {self.ventana_s}")
+            if self.timeout_rf3_s is not None:
+                texto = texto.replace("timeout_en_linea_s = 150", f"timeout_en_linea_s = {self.timeout_rf3_s}")
             ruta = self.carpeta / "config.sim.toml"
             ruta.write_text(texto)
             self.config = str(ruta)
-            extra = ["--simular", "--periodo-rf3", str(self.periodo_s), "--sin", "rf2"]
+            extra = ["--simular", "--periodo-rf3", str(self.periodo_s)]
+            if self.sin:
+                extra += ["--sin", *self.sin]
         else:
-            extra = ["--sin", "rf1", "rf2"]
-            if not ns_en_marcha():
+            extra = ["--sin", *self.sin] if self.sin else []
+            if "rf3" not in self.sin and not ns_en_marcha():
                 puerto = self.puerto or buscar_puerto_receptor()
                 if not puerto:
                     raise SystemExit("ERROR: no encuentro el receptor LoRa por USB (/dev/cu.usbserial*); "
@@ -93,7 +106,14 @@ class Sesion:
         time.sleep(4)  # el gateway abre el socket UDP y arranca los hilos
         return self
 
+    def lanzar_panel(self, puerto: int) -> None:
+        """Panel Gradio (solo lectura) en un proceso aparte, leyendo la misma carpeta."""
+        self.panel = subprocess.Popen(
+            [sys.executable, "-m", "parcialfinal.panel", "--config", self.config, "--puerto", str(puerto)],
+            cwd=RAIZ, stdout=open(self.carpeta / "panel.log", "w"), stderr=subprocess.STDOUT)
+
     def __exit__(self, *exc):
+        detener(self.panel)
         detener(self.gateway)
         detener(self.ns)
         return False
